@@ -1,0 +1,1969 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Senora Paints | Modern Abstract Art</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+        /* =========================================
+           1. CSS VARIABLES (Scoped & Prefixed)
+           ========================================= */
+		:root {
+		--font-body-scale: 1.0;
+		}
+		
+		html {
+			font-size: calc(var(--font-body-scale) * 62.5%);
+		}
+		
+		
+        .tv_scope {
+            /* --- Future Proofing Scale Factor --- */
+            /* Default: 1 (Assumes external root is 10px/62.5%) */
+            /* If external root changes to 16px (100%), change this to 0.625 */
+            --tv-rem-scale: 1;
+
+            /* --- Colors --- */
+            --tv-color-bg: #f8f9fa;
+            --tv-color-white: #ffffff;
+            --tv-color-text: #333333;
+            --tv-color-text-light: #6b7280;
+            --tv-color-primary: #D81B60;
+            --tv-color-primary-hover: #AD1457;
+            --tv-color-primary-light: #FCE4EC;
+            --tv-color-border: #e5e7eb;
+            --tv-color-gray-100: #f3f4f6;
+            
+            /* --- Fonts --- */
+            --tv-font-sans: 'Inter', sans-serif;
+            --tv-font-serif: 'Playfair Display', serif;
+            
+            /* --- Shadows --- */
+            --tv-shadow-soft: 0 1rem 4rem -1rem rgba(0,0,0,0.05);
+            --tv-shadow-art: 0 2rem 2.5rem -0.5rem rgba(0, 0, 0, 0.1), 0 1rem 1rem -0.5rem rgba(0, 0, 0, 0.04);
+            
+            /* --- Layout Dimensions (Scaled) --- */
+            --tv-container-width: calc(128rem * var(--tv-rem-scale)); /* 1280px */
+            --tv-header-height: calc(9.6rem * var(--tv-rem-scale));   /* 96px */
+        }
+
+        /* =========================================
+           2. RESET & BASE STYLES (Scoped)
+           ========================================= */
+        .tv_scope * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .tv_scope {
+            background-color: var(--tv-color-bg);
+            color: var(--tv-color-text);
+            font-family: var(--tv-font-sans);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            /* Sets base font size to 16px (1.6rem at 10px root) */
+            font-size: calc(1.6rem * var(--tv-rem-scale)); 
+        }
+
+        .tv_scope h1, 
+        .tv_scope h2, 
+        .tv_scope h3, 
+        .tv_scope h4, 
+        .tv_scope h5, 
+        .tv_scope h6 {
+            font-family: var(--tv-font-serif);
+            margin-top: 0;
+            margin-bottom: 0.5em;
+            line-height: 1.2;
+            font-weight: bold;
+        }
+
+        .tv_scope p { margin-top: 0; margin-bottom: 1em; }
+        .tv_scope a { text-decoration: none; color: inherit; transition: color 0.2s; }
+        .tv_scope button, 
+        .tv_scope input, 
+        .tv_scope select, 
+        .tv_scope textarea { font-family: inherit; }
+        .tv_scope img { max-width: 100%; display: block; }
+
+        /* =========================================
+           3. UTILITIES
+           ========================================= */
+        .tv_container {
+            max-width: var(--tv-container-width);
+            margin: 0 auto;
+            padding: 0 calc(2.4rem * var(--tv-rem-scale)); /* 24px */
+        }
+
+        .tv_hidden { display: none !important; }
+        .tv_display-empty:empty { display: block; }
+        
+        .tv_fade-in { animation: tv_fadeIn 0.5s ease-in; }
+        @keyframes tv_fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        
+        .tv_opacity-0 { opacity: 0; }
+        .tv_opacity-100 { opacity: 1; }
+        .tv_transition-opacity { transition: opacity 0.5s ease-in-out; }
+
+        .tv_text-center { text-align: center; }
+        .tv_text-primary { color: var(--tv-color-primary); }
+        .tv_text-white, tv_color--white { color: var(--tv-color-white); }
+        .tv_text-light { color: var(--tv-color-text-light); }
+        .tv_text-small { font-size: calc(1.4rem * var(--tv-rem-scale)); } /* 14px */
+        .tv_text-italic { font-style: italic; }
+        
+        .tv_uppercase { text-transform: uppercase; }
+        .tv_font-serif { font-family: var(--tv-font-serif); }
+        .tv_font-bold { font-weight: 700; }
+        
+        /* Spacing & Layout Utilities */
+        .tv_section { padding: calc(8rem * var(--tv-rem-scale)) 0; } /* 80px */
+        .tv_section-lg { padding: calc(9.6rem * var(--tv-rem-scale)) 0; } /* 96px */
+        .tv_section-pb-lg { padding-bottom: calc(9.6rem * var(--tv-rem-scale)); } /* 96px */
+        .tv_section-y-md { padding-top: calc(6.4rem * var(--tv-rem-scale)); padding-bottom: calc(6.4rem * var(--tv-rem-scale)); } /* 64px */
+        .tv_section-y-sm { padding-top: calc(4.8rem * var(--tv-rem-scale)); padding-bottom: calc(4.8rem * var(--tv-rem-scale)); } /* 48px */
+        .tv_section-y-contact { padding-top: calc(8rem * var(--tv-rem-scale)); padding-bottom: calc(8rem * var(--tv-rem-scale)); } /* 80px */
+        
+        .tv_mb-1 { margin-bottom: calc(0.8rem * var(--tv-rem-scale)); } /* 8px */
+        .tv_mb-2 { margin-bottom: calc(1.6rem * var(--tv-rem-scale)); } /* 16px */
+        .tv_mb-3 { margin-bottom: calc(2.4rem * var(--tv-rem-scale)); } /* 24px */
+        .tv_mb-4 { margin-bottom: calc(3.2rem * var(--tv-rem-scale)); } /* 32px */
+        .tv_mb-6 { margin-bottom: calc(4.8rem * var(--tv-rem-scale)); } /* 48px */
+        .tv_mb-8 { margin-bottom: calc(6.4rem * var(--tv-rem-scale)); } /* 64px */
+        
+        .tv_main-grow { flex-grow: 1; }
+        .tv_bg-white { background-color: var(--tv-color-white); }
+        .tv_bg-gray { background-color: var(--tv-color-gray-100); }
+        .tv_bg-dark { background-color: var(--tv-color-text); color: var(--tv-color-white); }
+
+        .tv_divider {
+            height: calc(0.4rem * var(--tv-rem-scale)); /* 4px */
+            width: calc(8rem * var(--tv-rem-scale)); /* 80px */
+            background-color: var(--tv-color-primary);
+            margin: calc(1.6rem * var(--tv-rem-scale)) auto; /* 16px */
+        }
+        div:empty.tv_divider { display: block; }
+
+        /* =========================================
+           4. COMPONENTS
+           ========================================= */
+        
+        /* --- Buttons --- */
+        .tv_btn {
+            display: inline-block;
+            padding: calc(1.6rem * var(--tv-rem-scale)) calc(3.2rem * var(--tv-rem-scale)); /* 16px 32px */
+            font-size: calc(1.4rem * var(--tv-rem-scale)); /* 14px */
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-radius: 2px;
+            text-align: center;
+        }
+        
+        .tv_btn--primary {
+            background-color: var(--tv-color-primary);
+            color: var(--tv-color-white);
+            box-shadow: 0 0.4rem 0.6rem rgba(216, 27, 96, 0.2);
+        }
+        .tv_btn--primary:hover {
+            background-color: var(--tv-color-primary-hover);
+            transform: translateY(-2px);
+        }
+
+        .tv_btn--secondary {
+            background-color: transparent;
+            border: 1px solid var(--tv-color-text);
+            color: var(--tv-color-text);
+        }
+        .tv_btn--secondary:hover {
+            background-color: var(--tv-color-text);
+            color: var(--tv-color-white);
+        }
+
+        .tv_btn--dark {
+            background-color: var(--tv-color-text);
+            color: var(--tv-color-white);
+        }
+        .tv_btn--dark:hover {
+            background-color: black;
+        }
+
+        .tv_btn--text {
+            background: none;
+            border: none;
+            padding: 0;
+            text-decoration: underline;
+            color: var(--tv-color-text-light);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: calc(0.8rem * var(--tv-rem-scale)); /* 8px */
+        }
+        .tv_btn--text:hover { color: var(--tv-color-primary); }
+
+        .tv_btn--full { width: 100%; }
+
+        /* --- Announcement Bar --- */
+        .tv_announcement-bar {
+            background-color: var(--tv-color-text);
+            color: var(--tv-color-white);
+            text-align: center;
+            padding: calc(0.8rem * var(--tv-rem-scale)) calc(1.6rem * var(--tv-rem-scale)); /* 8px 16px */
+            font-size: calc(1.2rem * var(--tv-rem-scale)); /* 12px */
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* --- Header / Navigation --- */
+        .tv_header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background-color: rgba(248, 249, 250, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--tv-color-border);
+            height: var(--tv-header-height);
+        }
+
+        .tv_header__inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+        }
+
+        .tv_nav__links {
+            display: none;
+            gap: calc(3.2rem * var(--tv-rem-scale)); /* 32px */
+        }
+        
+        @media (min-width: 1024px) {
+            .tv_nav__links { display: flex; align-items: center; }
+            .tv_header__mobile-toggle { display: none; }
+        }
+        
+        .tv_nav__link {
+            font-size: calc(1.4rem * var(--tv-rem-scale)); /* 14px */
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: rgba(var(--tv-color-text), 1);
+        }
+        .tv_nav__link:hover { 
+            color: var(--tv-color-primary); 
+        }
+        .tv_nav__link--active { 
+            color: var(--tv-color-primary);
+            font-weight: 700; 
+        }
+        .tv_nav__link--highlight {
+            font-weight: 700;
+            color: var(--tv-color-primary);
+        }
+        .tv_nav__link--badge {
+            font-size: calc(1.2rem * var(--tv-rem-scale)); /* 12px */
+            border: 1px solid #ddd;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            color: #999;
+        }
+        .tv_nav__link--badge:hover {
+            color: var(--tv-color-primary);
+            border-color: var(--tv-color-primary);
+        }
+        
+        .tv_header__logo {
+            min-width: 150px;
+        }
+        
+        .tv_header__actions { display: flex; gap: calc(1.6rem * var(--tv-rem-scale)); align-items: center; } /* 16px */
+        .tv_header__icon-btn { position: relative; padding: calc(0.8rem * var(--tv-rem-scale)); background: none; border: none; font-size: calc(2rem * var(--tv-rem-scale)); cursor: pointer; color: var(--tv-color-text); } /* 20px */
+        .tv_header__icon-btn:hover { color: var(--tv-color-primary); }
+        
+        .tv_badge {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: var(--tv-color-primary);
+            color: white;
+            font-size: calc(1rem * var(--tv-rem-scale)); /* 10px */
+            font-weight: bold;
+            height: calc(1.6rem * var(--tv-rem-scale)); /* 16px */
+            width: calc(1.6rem * var(--tv-rem-scale)); /* 16px */
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* --- Mobile Menu --- */
+        .tv_mobile-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background-color: var(--tv-color-white);
+            border-bottom: 1px solid var(--tv-color-border);
+            padding: calc(2.4rem * var(--tv-rem-scale)); /* 24px */
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            gap: calc(2.4rem * var(--tv-rem-scale)); /* 24px */
+            box-shadow: var(--tv-shadow-soft);
+        }
+        .tv_mobile-menu.flex { display: flex; }
+
+        /* --- Hero Section --- */
+        .tv_hero {
+            display: grid;
+            grid-template-columns: 1fr;
+            min-height: 85vh;
+        }
+        
+        /* Mobile: Visual Top, Content Bottom */
+        .tv_hero__content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: calc(4.8rem * var(--tv-rem-scale)) calc(3.2rem * var(--tv-rem-scale)); /* 48px 32px */
+            order: 2;
+        }
+        .tv_hero__visual {
+            background-color: var(--tv-color-gray-100);
+            min-height: 50vh;
+            order: 1;
+        }
+        
+        @media (min-width: 1024px) {
+            .tv_hero { grid-template-columns: 1fr 1fr; }
+            /* Desktop: Content Left, Visual Right */
+            .tv_hero__content { order: 1; padding: calc(9.6rem * var(--tv-rem-scale)); } /* 96px */
+            .tv_hero__visual { order: 2; position: relative; }
+        }
+        
+        .tv_hero__visual img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .tv_tag {
+            display: inline-block;
+            padding: calc(0.4rem * var(--tv-rem-scale)) calc(1.2rem * var(--tv-rem-scale)); /* 4px 12px */
+            border: 1px solid rgba(51, 51, 51, 0.3);
+            border-radius: 999px;
+            font-size: calc(1.2rem * var(--tv-rem-scale)); /* 12px */
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: calc(2.4rem * var(--tv-rem-scale)); /* 24px */
+            background: white;
+        }
+
+        .tv_display-text {
+            font-size: calc(4.8rem * var(--tv-rem-scale)); /* 48px */
+            font-weight: 700;
+            margin-bottom: calc(2.4rem * var(--tv-rem-scale)); /* 24px */
+        }
+        @media (min-width: 768px) { .tv_display-text { font-size: calc(7.2rem * var(--tv-rem-scale)); } } /* 72px */
+        
+        .tv_hero__description {
+            font-size: calc(2rem * var(--tv-rem-scale)); /* 20px */
+            color: var(--tv-color-text-light);
+            margin-bottom: calc(4rem * var(--tv-rem-scale)); /* 40px */
+            max-width: 500px;
+        }
+
+        .tv_hero__actions { display: flex; gap: calc(1.6rem * var(--tv-rem-scale)); flex-wrap: wrap; } /* 16px */
+
+        /* --- Grid Layouts --- */
+        .tv_grid {
+            display: grid;
+            gap: calc(3.2rem * var(--tv-rem-scale)); /* 32px */
+        }
+        .tv_grid--2-col { grid-template-columns: 1fr; }
+        .tv_grid--3-col { grid-template-columns: 1fr; }
+        .tv_grid--4-col { grid-template-columns: 1fr; }
+
+        @media (min-width: 640px) {
+            .tv_grid--2-col { grid-template-columns: 1fr 1fr; }
+            .tv_grid--4-col { grid-template-columns: 1fr 1fr; }
+        }
+        @media (min-width: 768px) {
+            .tv_grid--3-col { grid-template-columns: repeat(3, 1fr); }
+        }
+        @media (min-width: 1024px) {
+            .tv_grid--4-col { grid-template-columns: repeat(4, 1fr); }
+        }
+
+        /* --- Product Card --- */
+        .tv_card {
+            cursor: pointer;
+        }
+        .tv_card__image-wrapper {
+            position: relative;
+            background-color: var(--tv-color-gray-100);
+            aspect-ratio: 4/5;
+            overflow: hidden;
+            margin-bottom: calc(2.4rem * var(--tv-rem-scale)); /* 24px */
+            border-radius: 2px;
+            box-shadow: var(--tv-shadow-soft);
+        }
+        .tv_card__image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s ease;
+        }
+        .tv_card:hover .tv_card__image { transform: scale(1.05); }
+        
+        .tv_card__badge {
+            position: absolute;
+            top: calc(0.8rem * var(--tv-rem-scale)); /* 8px */
+            left: calc(0.8rem * var(--tv-rem-scale)); /* 8px */
+            padding: calc(0.4rem * var(--tv-rem-scale)) calc(0.8rem * var(--tv-rem-scale)); /* 4px 8px */
+            font-size: calc(1rem * var(--tv-rem-scale)); /* 10px */
+            font-weight: bold;
+            text-transform: uppercase;
+            color: white;
+            z-index: 10;
+        }
+        .tv_card__badge--dark { background-color: var(--tv-color-text); }
+        .tv_card__badge--primary { background-color: var(--tv-color-primary); }
+
+        .tv_card__title { font-size: calc(2rem * var(--tv-rem-scale)); font-weight: 600; font-family: var(--tv-font-serif); margin-bottom: 4px; } /* 20px */
+        .tv_card__price { color: var(--tv-color-primary); font-weight: 500; }
+
+        /* --- Promo Cards --- */
+        .tv_promo-card {
+            position: relative;
+            height: calc(38.4rem * var(--tv-rem-scale)); /* 384px */
+            overflow: hidden;
+            border-radius: 2px;
+            cursor: pointer;
+        }
+        .tv_promo-card__bg {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s ease;
+        }
+        .tv_promo-card:hover .tv_promo-card__bg { transform: scale(1.05); }
+        .tv_promo-card__overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.3);
+            transition: background 0.3s;
+        }
+        div:empty.tv_promo-card__overlay { display: block; }
+        .tv_promo-card:hover .tv_promo-card__overlay { background: rgba(0,0,0,0.4); }
+        .tv_promo-card__content {
+            position: absolute;
+            bottom: calc(3.2rem * var(--tv-rem-scale)); /* 32px */
+            left: calc(3.2rem * var(--tv-rem-scale)); /* 32px */
+            color: white;
+        }
+        .tv_promo-card__link {
+            text-transform: uppercase;
+            font-size: calc(1.4rem * var(--tv-rem-scale)); /* 14px */
+            letter-spacing: 0.1em;
+            border-bottom: 1px solid white;
+            padding-bottom: 2px;
+        }
+
+        /* --- Forms --- */
+        .tv_form-group { margin-bottom: calc(2.4rem * var(--tv-rem-scale)); } /* 24px */
+        .tv_form-label {
+            display: block;
+            font-size: calc(1.4rem * var(--tv-rem-scale)); /* 14px */
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--tv-color-text-light);
+            margin-bottom: calc(0.8rem * var(--tv-rem-scale)); /* 8px */
+        }
+        .tv_form-input, .tv_form-select, .tv_form-textarea {
+            width: 100%;
+            padding: calc(1.6rem * var(--tv-rem-scale)); /* 16px */
+            border: 1px solid var(--tv-color-border);
+            border-radius: 2px;
+            background-color: var(--tv-color-bg);
+            transition: all 0.2s;
+        }
+        .tv_form-input:focus, .tv_form-select:focus, .tv_form-textarea:focus {
+            outline: none;
+            background-color: var(--tv-color-white);
+            border-color: var(--tv-color-primary);
+            box-shadow: 0 0 0 2px rgba(216, 27, 96, 0.1);
+        }
+        .tv_form-input--compact { padding: calc(0.8rem * var(--tv-rem-scale)); } /* 8px */
+
+        .tv_checkbox-wrapper { display: flex; align-items: center; gap: calc(1.2rem * var(--tv-rem-scale)); cursor: pointer; } /* 12px */
+        .tv_checkbox-input {
+            width: calc(2rem * var(--tv-rem-scale)); /* 20px */
+            height: calc(2rem * var(--tv-rem-scale)); /* 20px */
+            accent-color: var(--tv-color-primary);
+        }
+        
+        .tv_form-card {
+            background: white;
+            padding: calc(4.8rem * var(--tv-rem-scale)); /* 48px */
+            box-shadow: var(--tv-shadow-art);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* --- Newsletter --- */
+        .tv_newsletter {
+            background-color: rgba(216, 27, 96, 0.05);
+            padding: calc(9.6rem * var(--tv-rem-scale)) calc(2.4rem * var(--tv-rem-scale)); /* 96px 24px */
+            text-align: center;
+        }
+        .tv_newsletter__form {
+            display: flex;
+            flex-direction: column;
+            gap: calc(1.6rem * var(--tv-rem-scale)); /* 16px */
+            max-width: 600px;
+            margin: calc(3.2rem * var(--tv-rem-scale)) auto 0; /* 32px */
+        }
+        @media (min-width: 640px) {
+            .tv_newsletter__form { flex-direction: row; }
+        }
+
+        /* --- Catalog Filters --- */
+        .tv_sidebar-filter__section { margin-bottom: calc(3.2rem * var(--tv-rem-scale)); } /* 32px */
+        .tv_sidebar-filter__title {
+            font-size: calc(1.4rem * var(--tv-rem-scale)); /* 14px */
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border-bottom: 1px solid var(--tv-color-border);
+            padding-bottom: calc(0.8rem * var(--tv-rem-scale)); /* 8px */
+            margin-bottom: calc(1.6rem * var(--tv-rem-scale)); /* 16px */
+        }
+        .tv_filter-list { list-style: none; padding: 0; margin: 0; }
+        .tv_filter-list__item { margin-bottom: calc(0.8rem * var(--tv-rem-scale)); } /* 8px */
+        .tv_filter-list__label {
+            display: flex;
+            align-items: center;
+            gap: calc(0.8rem * var(--tv-rem-scale)); /* 8px */
+            font-size: calc(1.4rem * var(--tv-rem-scale)); /* 14px */
+            color: var(--tv-color-text-light);
+            cursor: pointer;
+        }
+        .tv_checkbox-input--inline { margin-right: calc(0.8rem * var(--tv-rem-scale)); accent-color: var(--tv-color-primary); } /* 8px */
+        .tv_price-inputs { display: flex; gap: calc(0.8rem * var(--tv-rem-scale)); align-items: center; margin-bottom: calc(1.6rem * var(--tv-rem-scale)); } /* 16px */
+
+        .tv_catalog-layout { display: grid; grid-template-columns: 1fr; gap: calc(4.8rem * var(--tv-rem-scale)); } /* 48px */
+        @media (min-width: 1024px) {
+            .tv_catalog-layout { grid-template-columns: 250px 1fr; }
+        }
+        
+        .tv_toolbar {
+            display: flex; justify-content: space-between; align-items: center; 
+            margin-bottom: calc(3.2rem * var(--tv-rem-scale)); border-bottom: 1px solid var(--tv-color-border); padding-bottom: calc(1.6rem * var(--tv-rem-scale)); /* 32px 16px */
+        }
+        .tv_toolbar__select { width: auto; border: none; background: transparent; font-weight: 500; }
+        
+        .tv_pagination { display: flex; justify-content: center; gap: calc(0.8rem * var(--tv-rem-scale)); margin-top: calc(4.8rem * var(--tv-rem-scale)); } /* 8px 48px */
+        .tv_pagination__btn { width: calc(4rem * var(--tv-rem-scale)); height: calc(4rem * var(--tv-rem-scale)); cursor: pointer; border: none; } /* 40px */
+        .tv_pagination__btn--active { background: var(--tv-color-text); color: white; }
+        .tv_pagination__btn--default { background: white; border: 1px solid #ddd; }
+
+        /* --- Cart --- */
+        .tv_cart-layout { display: flex; flex-direction: column; gap: calc(4.8rem * var(--tv-rem-scale)); } /* 48px */
+        @media (min-width: 1024px) {
+            .tv_cart-layout { flex-direction: row; }
+            .tv_cart-items { flex-grow: 1; }
+            .tv_cart-summary { width: 384px; flex-shrink: 0; }
+        }
+        
+        .tv_cart-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: calc(4.8rem * var(--tv-rem-scale)); } /* 48px */
+        
+        .tv_cart-item {
+            display: flex;
+            gap: calc(2.4rem * var(--tv-rem-scale)); /* 24px */
+            padding-bottom: calc(3.2rem * var(--tv-rem-scale)); /* 32px */
+            border-bottom: 1px solid var(--tv-color-border);
+            margin-bottom: calc(3.2rem * var(--tv-rem-scale)); /* 32px */
+        }
+        .tv_cart-item__img { width: calc(9.6rem * var(--tv-rem-scale)); height: calc(12.8rem * var(--tv-rem-scale)); background: var(--tv-color-gray-100); flex-shrink: 0; } /* 96px 128px */
+        .tv_cart-item__img img { width: 100%; height: 100%; object-fit: cover; }
+        .tv_cart-item__info { flex-grow: 1; }
+        .tv_cart-item__header { display: flex; justify-content: space-between; margin-bottom: calc(0.8rem * var(--tv-rem-scale)); } /* 8px */
+        .tv_cart-item__controls { display: flex; justify-content: space-between; align-items: center; }
+        .tv_cart-item__remove {
+            border: none; background: none; font-size: calc(1.2rem * var(--tv-rem-scale)); /* 12px */
+            font-weight: bold; text-transform: uppercase; color: #999; 
+            cursor: pointer; text-decoration: underline;
+        }
+        
+        /* Quantity Control */
+        .tv_qty-control {
+            display: flex;
+            align-items: center;
+            border: 1px solid var(--tv-color-border);
+            width: calc(12.8rem * var(--tv-rem-scale)); /* 128px */
+            border-radius: 2px;
+        }
+        .tv_qty-control__btn {
+            background: none;
+            border: none;
+            width: calc(4rem * var(--tv-rem-scale)); /* 40px */
+            height: calc(4rem * var(--tv-rem-scale)); /* 40px */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--tv-color-text-light);
+            transition: background-color 0.2s;
+        }
+        .tv_qty-control__btn:hover { background-color: var(--tv-color-gray-100); }
+        
+        .tv_qty-control__val { 
+            padding: 0; 
+            font-size: calc(1.6rem * var(--tv-rem-scale)); /* 16px */
+            font-weight: 500; 
+            width: calc(4.8rem * var(--tv-rem-scale)); /* 48px */
+            height: calc(4rem * var(--tv-rem-scale)); /* 40px */
+            text-align: center; 
+            border: none; 
+            background: transparent;
+            color: var(--tv-color-text);
+            appearance: textfield;
+        }
+        .tv_qty-control__val::-webkit-inner-spin-button, 
+        .tv_qty-control__val::-webkit-outer-spin-button { 
+            -webkit-appearance: none; 
+            margin: 0; 
+        }
+        .tv_qty-control__val:focus { outline: none; }
+
+        .tv_cart-summary__box {
+            background-color: #fafafa;
+            padding: calc(3.2rem * var(--tv-rem-scale)); /* 32px */
+            border-radius: 2px;
+        }
+        .tv_cart-summary__row {
+            display: flex; justify-content: space-between; margin-bottom: calc(0.8rem * var(--tv-rem-scale)); /* 8px */
+        }
+        .tv_cart-summary__total {
+            border-bottom: 1px solid var(--tv-color-border); 
+            padding-bottom: calc(1.6rem * var(--tv-rem-scale)); margin-bottom: calc(1.6rem * var(--tv-rem-scale)); /* 16px */
+            display: flex; justify-content: space-between; 
+            font-size: calc(1.8rem * var(--tv-rem-scale)); font-weight: bold; color: var(--tv-color-text); /* 18px */
+        }
+        
+        /* Empty Cart */
+        .tv_empty-cart-container {
+            flex-grow: 1; 
+            display: flex; 
+            flex-direction: column;
+            align-items: center; 
+            justify-content: center; 
+            text-align: center; 
+            min-height: 60vh;
+        }
+        .tv_empty-cart__icon {
+            width: calc(9.6rem * var(--tv-rem-scale)); height: calc(9.6rem * var(--tv-rem-scale)); /* 96px */
+            background-color: var(--tv-color-gray-100); 
+            border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center; 
+            margin: 0 auto calc(2.4rem * var(--tv-rem-scale)); /* 24px */
+        }
+        .tv_empty-cart__actions {
+            display: flex;
+            flex-direction: column;
+            gap: calc(1.6rem * var(--tv-rem-scale)); /* 16px */
+            justify-content: center;
+            width: 100%;
+            max-width: 300px;
+        }
+        @media (min-width: 640px) {
+            .tv_empty-cart__actions { flex-direction: row; max-width: none; }
+        }
+
+        /* --- Product Detail --- */
+        .tv_product-detail__grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: calc(4.8rem * var(--tv-rem-scale)); /* 48px */
+        }
+        @media (min-width: 1024px) {
+            .tv_product-detail__grid { grid-template-columns: 1fr 1fr; gap: calc(8rem * var(--tv-rem-scale)); } /* 80px */
+        }
+        
+        .tv_gallery__main {
+            position: relative;
+            aspect-ratio: 4/5;
+            background-color: var(--tv-color-white);
+            box-shadow: var(--tv-shadow-art);
+            margin-bottom: calc(2.4rem * var(--tv-rem-scale)); /* 24px */
+        }
+        .tv_gallery__main img { width: 100%; height: 100%; object-fit: cover; }
+        .tv_view-in-room-btn {
+            position: absolute; bottom: calc(1.6rem * var(--tv-rem-scale)); right: calc(1.6rem * var(--tv-rem-scale)); /* 16px */
+            background: rgba(255,255,255,0.9); border: none; 
+            padding: calc(0.8rem * var(--tv-rem-scale)) calc(1.6rem * var(--tv-rem-scale)); border-radius: 999px; /* 8px 16px */
+            font-weight: bold; font-size: calc(1.2rem * var(--tv-rem-scale)); /* 12px */
+            text-transform: uppercase; cursor: pointer; 
+            display: flex; align-items: center; gap: calc(0.8rem * var(--tv-rem-scale)); /* 8px */
+        }
+        
+        .tv_gallery__thumbnails { display: grid; grid-template-columns: repeat(4, 1fr); gap: calc(1.6rem * var(--tv-rem-scale)); } /* 16px */
+        .tv_gallery__thumb {
+            aspect-ratio: 1;
+            border: 2px solid transparent;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: all 0.2s;
+        }
+        .tv_gallery__thumb img { width: 100%; height: 100%; object-fit: cover; }
+        .tv_gallery__thumb:hover { opacity: 1; }
+        .tv_gallery__thumb--active { border-color: var(--tv-color-primary); opacity: 1; }
+
+        .tv_variant-options { display: flex; flex-wrap: wrap; gap: calc(1.2rem * var(--tv-rem-scale)); } /* 12px */
+        .tv_variant-btn {
+            padding: calc(1.2rem * var(--tv-rem-scale)) calc(2.4rem * var(--tv-rem-scale)); /* 12px 24px */
+            border: 1px solid var(--tv-color-border);
+            background: transparent;
+            border-radius: 2px;
+            font-size: calc(1.4rem * var(--tv-rem-scale)); /* 14px */
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .tv_variant-btn:hover { border-color: var(--tv-color-text-light); }
+        .tv_variant-btn--active {
+            background-color: var(--tv-color-primary);
+            color: white;
+            border-color: var(--tv-color-primary);
+        }
+        .tv_vendor-name {
+            font-size: calc(1.2rem * var(--tv-rem-scale)); /* 12px */
+            letter-spacing: 0.1em;
+            color: var(--tv-color-text-light);
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: calc(0.8rem * var(--tv-rem-scale)); /* 8px */
+        }
+        .tv_product-price { font-size: calc(3.2rem * var(--tv-rem-scale)); font-weight: 300; margin-bottom: calc(3.2rem * var(--tv-rem-scale)); } /* 32px */
+        .tv_product-title { font-size: calc(4rem * var(--tv-rem-scale)); margin-bottom: calc(0.8rem * var(--tv-rem-scale)); line-height: 1.1; } /* 40px 8px */
+
+        /* --- Accordion --- */
+        .tv_accordion { border-top: 1px solid var(--tv-color-border); margin-bottom: calc(3.2rem * var(--tv-rem-scale)); } /* 32px */
+        .tv_accordion__item { border-bottom: 1px solid var(--tv-color-border); }
+        .tv_accordion__header {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: calc(2rem * var(--tv-rem-scale)) 0; /* 20px */
+            background: none;
+            border: none;
+            cursor: pointer;
+            text-align: left;
+        }
+        .tv_accordion__title {
+            font-family: var(--tv-font-serif);
+            font-weight: 600;
+            font-size: calc(1.8rem * var(--tv-rem-scale)); /* 18px */
+            color: var(--tv-color-text);
+        }
+        .tv_accordion__icon {
+            color: var(--tv-color-text-light);
+            transition: transform 0.3s;
+        }
+        .tv_accordion__content {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+        }
+        .tv_accordion__content.active { opacity: 1; }
+        .tv_accordion__text { padding-bottom: calc(2.4rem * var(--tv-rem-scale)); color: #666; } /* 24px */
+        .tv_rotate-45 { transform: rotate(45deg); color: var(--tv-color-primary); }
+
+        /* --- Logos Page --- */
+        .tv_logo-card {
+            background: white; padding: calc(4.8rem * var(--tv-rem-scale)); text-align: center; border: 1px solid var(--tv-color-border); /* 48px */
+        }
+        .tv_logo-card--selected {
+            border: 2px solid rgba(216, 27, 96, 0.2); position: relative;
+        }
+        .tv_logo-card__badge {
+            position: absolute; top: calc(1.6rem * var(--tv-rem-scale)); right: calc(1.6rem * var(--tv-rem-scale)); background: var(--tv-color-primary); color: white; padding: calc(0.4rem * var(--tv-rem-scale)) calc(0.8rem * var(--tv-rem-scale)); font-size: calc(1.2rem * var(--tv-rem-scale)); font-weight: bold; border-radius: 2px; /* 16px, 4px 8px, 12px */
+        }
+        .tv_logo-card__title {
+            font-size: calc(1.2rem * var(--tv-rem-scale)); text-transform: uppercase; letter-spacing: 0.1em; color: #999; margin-bottom: calc(3.2rem * var(--tv-rem-scale)); /* 12px 32px */
+        }
+        .tv_logo-card__visual {
+            height: calc(12.8rem * var(--tv-rem-scale)); display: flex; align-items: center; justify-content: center; /* 128px */
+        }
+        
+        /* --- Banner --- */
+        .tv_banner {
+            background-color: var(--tv-color-text); color: white; padding: calc(4.8rem * var(--tv-rem-scale)) calc(2.4rem * var(--tv-rem-scale)); text-align: center; /* 48px 24px */
+        }
+        .tv_banner--large { padding: calc(9.6rem * var(--tv-rem-scale)) calc(2.4rem * var(--tv-rem-scale)); } /* 96px 24px */
+        .tv_banner__title { font-size: calc(4rem * var(--tv-rem-scale)); } /* 40px */
+        .tv_banner__subtitle { color: #999; }
+        .tv_banner__text { font-size: calc(2.4rem * var(--tv-rem-scale)); font-weight: 300; color: #ccc; } /* 24px */
+
+        /* --- Footer --- */
+        .tv_footer {
+            background-color: var(--tv-color-text);
+            color: white;
+            padding-top: calc(6.4rem * var(--tv-rem-scale)); /* 64px */
+            padding-bottom: calc(3.2rem * var(--tv-rem-scale)); /* 32px */
+            margin-top: auto;
+        }
+        .tv_footer__grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: calc(4.8rem * var(--tv-rem-scale)); /* 48px */
+            margin-bottom: calc(4.8rem * var(--tv-rem-scale)); /* 48px */
+        }
+        @media (min-width: 768px) {
+            .tv_footer__grid { grid-template-columns: repeat(4, 1fr); }
+        }
+        .tv_footer__title {
+            font-size: calc(1.2rem * var(--tv-rem-scale)); /* 12px */
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: calc(2.4rem * var(--tv-rem-scale)); /* 24px */
+            color: #9ca3af;
+        }
+        .tv_footer__links { list-style: none; padding: 0; margin: 0; }
+        .tv_footer__links li { margin-bottom: calc(1.2rem * var(--tv-rem-scale)); font-size: calc(1.4rem * var(--tv-rem-scale)); color: #d1d5db; } /* 12px 14px */
+        .tv_footer__links a:hover { color: var(--tv-color-primary); }
+        
+        .tv_footer__social { display: flex; gap: calc(1.6rem * var(--tv-rem-scale)); } /* 16px */
+        .tv_social-icon {
+            width: calc(4rem * var(--tv-rem-scale)); /* 40px */
+            height: calc(4rem * var(--tv-rem-scale)); /* 40px */
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+        .tv_social-icon:hover { background-color: var(--tv-color-primary); }
+        .tv_footer__copyright {
+            text-align: center; border-top: 1px solid #374151; padding-top: calc(3.2rem * var(--tv-rem-scale)); font-size: calc(1.2rem * var(--tv-rem-scale)); color: #9ca3af; /* 32px 12px */
+        }
+
+        /* --- Modal --- */
+        .tv_modal {
+            position: fixed;
+            inset: 0;
+            z-index: 50;
+            display: none; /* Toggled */
+        }
+        .tv_modal__backdrop {
+            position: absolute;
+            inset: 0;
+            background-color: rgba(0,0,0,0.8);
+            backdrop-filter: blur(4px);
+        }
+        .tv_modal__container {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: calc(1.6rem * var(--tv-rem-scale)); /* 16px */
+            pointer-events: none;
+        }
+        .tv_modal__content {
+            position: relative;
+            background-color: white;
+            width: 100%;
+            max-width: 1024px;
+            height: 80vh;
+            border-radius: 8px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            pointer-events: auto;
+        }
+        .tv_modal__header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: calc(1.6rem * var(--tv-rem-scale)); /* 16px */
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            z-index: 20;
+            pointer-events: none;
+        }
+        .tv_modal__tag {
+            background-color: rgba(0,0,0,0.5);
+            color: white;
+            padding: calc(0.4rem * var(--tv-rem-scale)) calc(1.2rem * var(--tv-rem-scale)); /* 4px 12px */
+            border-radius: 4px;
+            font-size: calc(1.2rem * var(--tv-rem-scale)); /* 12px */
+            backdrop-filter: blur(4px);
+        }
+        .tv_modal__close {
+            background: white;
+            color: var(--tv-color-text);
+            border: none;
+            border-radius: 50%;
+            width: calc(4rem * var(--tv-rem-scale)); /* 40px */
+            height: calc(4rem * var(--tv-rem-scale)); /* 40px */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: var(--tv-shadow-soft);
+            pointer-events: auto;
+        }
+        .tv_modal__close:hover { background-color: var(--tv-color-primary); color: white; }
+        
+        .tv_modal__visual {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background-color: #e5e5e5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .tv_modal__bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+        
+        .tv_painting-mockup {
+            position: relative;
+            z-index: 10;
+            width: 30%;
+            transform: translateY(calc(-4.8rem * var(--tv-rem-scale))); /* -48px */
+            box-shadow: 5px 10px 30px rgba(0,0,0,0.5);
+        }
+        .tv_painting-mockup__inner {
+            background: white;
+            padding: calc(1.6rem * var(--tv-rem-scale)); /* 16px */
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .tv_modal__footer {
+            background-color: white;
+            padding: calc(1.6rem * var(--tv-rem-scale)); /* 16px */
+            border-top: 1px solid var(--tv-color-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 20;
+        }
+
+        /* --- Commissions Extras --- */
+        .tv_commissions-addons {
+            background-color: var(--tv-color-primary-light);
+            padding: calc(2.4rem * var(--tv-rem-scale)); /* 24px */
+            border-radius: 2px;
+            margin-bottom: calc(4rem * var(--tv-rem-scale)); /* 40px */
+            border: 1px solid rgba(216, 27, 96, 0.1);
+        }
+
+        /* --- About Page --- */
+        .tv_about-hero {
+            position: relative;
+            padding-top: calc(9.6rem * var(--tv-rem-scale)); /* 96px */
+            padding-bottom: calc(9.6rem * var(--tv-rem-scale)); /* 96px */
+            background-color: var(--tv-color-text);
+            color: var(--tv-color-white);
+            overflow: hidden;
+            text-align: center;
+        }
+        .tv_about-hero__bg-svg {
+            position: absolute;
+            top: 0; right: 0;
+            width: 50%; height: 100%;
+            opacity: 0.1;
+            pointer-events: none;
+        }
+        .tv_about-hero__inner {
+            max-width: 896px; /* 896px */
+            margin: 0 auto;
+            padding: 0 calc(2.4rem * var(--tv-rem-scale)); /* 24px */
+            position: relative;
+            z-index: 10;
+        }
+        .tv_about-hero__title {
+            font-family: var(--tv-font-serif);
+            font-weight: bold;
+            font-size: calc(4.8rem * var(--tv-rem-scale)); /* 48px */
+            margin-bottom: calc(3.2rem * var(--tv-rem-scale)); /* 32px */
+        }
+        @media (min-width: 768px) {
+            .tv_about-hero__title { font-size: calc(7.2rem * var(--tv-rem-scale)); } /* 72px */
+        }
+        .tv_about-hero__img-container {
+            width: calc(12.8rem * var(--tv-rem-scale)); height: calc(12.8rem * var(--tv-rem-scale)); /* 128px */
+            border-radius: 9999px;
+            overflow: hidden;
+            margin: 0 auto calc(3.2rem * var(--tv-rem-scale)); /* 32px */
+            border: 4px solid var(--tv-color-primary);
+        }
+        @media (min-width: 768px) {
+            .tv_about-hero__img-container { width: calc(19.2rem * var(--tv-rem-scale)); height: calc(19.2rem * var(--tv-rem-scale)); } /* 192px */
+        }
+        .tv_about-hero__img {
+            width: 100%; height: 100%; object-fit: cover;
+        }
+        .tv_about-hero__quote {
+            font-size: calc(2rem * var(--tv-rem-scale)); /* 20px */
+            font-weight: 300;
+            line-height: 1.625;
+            color: #d1d5db; /* gray-300 */
+        }
+        @media (min-width: 768px) {
+            .tv_about-hero__quote { font-size: calc(2.4rem * var(--tv-rem-scale)); } /* 24px */
+        }
+        .tv_about-content {
+            max-width: 768px; /* 768px */
+            margin: 0 auto;
+            padding: calc(6.4rem * var(--tv-rem-scale)) calc(2.4rem * var(--tv-rem-scale)); /* 64px 24px */
+            font-size: calc(1.8rem * var(--tv-rem-scale)); /* 18px */
+            color: #4b5563; /* gray-600 */
+            line-height: 1.625;
+            font-weight: 300;
+        }
+        .tv_about-content p { margin-bottom: calc(2.4rem * var(--tv-rem-scale)); } /* 24px */
+
+        /* --- Privacy Policy --- */
+        .tv_privacy-content {
+            max-width: 768px; /* 768px */
+            margin: 0 auto;
+            padding: calc(9.6rem * var(--tv-rem-scale)) calc(2.4rem * var(--tv-rem-scale)); /* 96px 24px */
+        }
+        
+        /* --- Search --- */
+        .tv_search-bar {
+            background-color: var(--tv-color-gray-100); 
+            padding: calc(4.8rem * var(--tv-rem-scale)) calc(2.4rem * var(--tv-rem-scale)); /* 48px 24px */
+            border-bottom: 1px solid var(--tv-color-border);
+        }
+        .tv_search-input-wrapper {
+            max-width: 600px; margin: 0 auto; position: relative;
+        }
+        .tv_search-icon {
+            position: absolute; left: calc(1.6rem * var(--tv-rem-scale)); top: 50%; transform: translateY(-50%); color: #999; font-size: calc(2rem * var(--tv-rem-scale)); /* 16px 20px */
+        }
+        .tv_search-input {
+            padding-left: calc(4.8rem * var(--tv-rem-scale)); font-size: calc(1.8rem * var(--tv-rem-scale)); /* 48px 18px */
+        }
+    </style>
+</head>
+<body>
+    <div class="tv_scope">
+        <!-- ANNOUNCEMENT BAR -->
+        <div class="tv_announcement-bar">
+            Free Shipping on Orders Over $150 | Use Code: <strong>WELCOME10</strong>
+        </div>
+
+        <!-- NAVIGATION -->
+        <nav class="tv_header" role="navigation" aria-label="Main Navigation">
+            <div class="tv_header__inner tv_container">
+                <button onclick="toggleMobileMenu()" class="tv_header__mobile-toggle tv_header__icon-btn" aria-label="Open Menu">
+                    <i class="ph ph-list"></i>
+                </button>
+
+                <a href="#" onclick="showPage('home')" class="tv_header__logo" aria-label="Senora Paints Home">
+                    <svg width="240" height="50" viewBox="0 0 240 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <text x="10" y="35" font-family="'Playfair Display', serif" font-weight="400" font-size="32" fill="#333">
+                            Senora <tspan fill="#D81B60" font-weight="700">Paints</tspan>
+                        </text>
+                    </svg>
+                </a>
+
+                <div class="tv_nav__links">
+                    <a href="#" onclick="showPage('home')" class="tv_nav__link">Home</a>
+                    <a href="#" onclick="showPage('catalog')" class="tv_nav__link">Shop All</a>
+                    <a href="#" onclick="showPage('commissions')" class="tv_nav__link tv_nav__link--highlight">Commissions</a>
+                    <a href="#" onclick="showPage('about')" class="tv_nav__link">About</a>
+                    <!--<a href="#" onclick="showPage('logo-showcase')" class="tv_nav__link tv_nav__link--badge">Logos</a>-->
+                </div>
+
+                <div class="tv_header__actions">
+                    <button onclick="showPage('search')" class="tv_header__icon-btn" aria-label="Search">
+                        <i class="ph ph-magnifying-glass"></i>
+                    </button>
+                    <button onclick="showPage('cart')" class="tv_header__icon-btn" aria-label="View Cart">
+                        <i class="ph ph-shopping-bag"></i>
+                        <span id="cart-count" class="tv_badge">2</span>
+                    </button>
+                </div>
+            </div>
+
+            <div id="mobile-menu" class="tv_mobile-menu">
+                <a href="#" onclick="showPage('home'); toggleMobileMenu()" class="tv_nav__link">Home</a>
+                <a href="#" onclick="showPage('catalog'); toggleMobileMenu()" class="tv_nav__link">Shop Collection</a>
+                <a href="#" onclick="showPage('commissions'); toggleMobileMenu()" class="tv_nav__link tv_text-primary">Commissions</a>
+                <a href="#" onclick="showPage('about'); toggleMobileMenu()" class="tv_nav__link">About</a>
+            </div>
+        </nav>
+
+        <!-- MAIN CONTENT CONTAINER -->
+        <main id="app" class="tv_main-grow">
+            
+            <!-- ======================= HOMEPAGE VIEW ======================= -->
+            <div id="home-view" class="tv_fade-in">
+                <header class="tv_hero">
+                    <div class="tv_hero__content">
+                        <div><span class="tv_tag">New Collection 2024</span></div>
+                        <h1 class="tv_display-text">Abstract Art for <br/><span class="tv_text-primary tv_text-italic">Modern Spaces</span></h1>
+                        <p class="tv_hero__description">Hand-painted originals and premium prints that elevate your environment.</p>
+                        <div class="tv_hero__actions">
+                            <button onclick="showPage('catalog')" class="tv_btn tv_btn--primary">Shop All</button>
+                            <button onclick="showPage('commissions')" class="tv_btn tv_btn--secondary">Commission Art</button>
+                        </div>
+                    </div>
+                    <div class="tv_hero__visual">
+                        <img src="https://images.unsplash.com/photo-1541701494587-cb58502866ab?q=80&w=2070&auto=format&fit=crop" alt="Abstract Art">
+                    </div>
+                </header>
+
+<!-- ======================= Featured Product Section ======================= -->
+                <section class="tv_section">
+                    <div class="tv_container">
+                        <div class="tv_grid tv_grid--2-col">
+                            <div onclick="showPage('catalog')" class="tv_promo-card">
+                                <img src="https://images.unsplash.com/photo-1547891654-e66ed7ebb968?q=80&w=1000&auto=format&fit=crop" class="tv_promo-card__bg">
+                                <div class="tv_promo-card__overlay"></div>
+                                <div class="tv_promo-card__content">
+                                    <h3 class="tv_mb-1" style="font-size: calc(3.2rem * var(--tv-rem-scale));">Original Canvases</h3>
+                                    <p class="tv_mb-2" style="opacity: 0.9;">One-of-a-kind statement pieces.</p>
+                                    <span class="tv_promo-card__link">Shop Originals</span>
+                                </div>
+                            </div>
+                            <div onclick="showPage('catalog')" class="tv_promo-card">
+                                <img src="https://images.unsplash.com/photo-1515405295579-ba7b45403062?q=80&w=1000&auto=format&fit=crop" class="tv_promo-card__bg">
+                                <div class="tv_promo-card__overlay"></div>
+                                <div class="tv_promo-card__content">
+                                    <h3 class="tv_mb-1" style="font-size: calc(3.2rem * var(--tv-rem-scale));">Prints & Lifestyle</h3>
+                                    <p class="tv_mb-2" style="opacity: 0.9;">Mugs, Cards, and Fine Art Prints.</p>
+                                    <span class="tv_promo-card__link">Shop Merch</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+<!-- ======================= Collection Section ======================= -->
+                <section id="collection" class="tv_section-pb-lg">
+                    <div class="tv_container">
+                        <div class="tv_text-center tv_mb-8">
+                            <h2 style="font-size: calc(3.6rem * var(--tv-rem-scale));">Trending Now</h2>
+                            <div class="tv_divider"></div>
+                        </div>
+                        <div class="tv_grid tv_grid--3-col">
+                            <div class="tv_card" onclick="showPage('product')">
+                                <div class="tv_card__image-wrapper">
+                                    <img src="https://images.unsplash.com/photo-1549490349-8643362247b5?q=80&w=1000&auto=format&fit=crop" class="tv_card__image" alt="Greeting Cards">
+                                </div>
+                                <h3 class="tv_card__title">Artist Editions</h3>
+                                <p class="tv_card__price">From $120.00</p>
+                            </div>
+                            <div class="tv_card" onclick="showPage('product')">
+                                <div class="tv_card__image-wrapper">
+                                    <img src="https://images.unsplash.com/photo-1547891654-e66ed7ebb968?q=80&w=1000&auto=format&fit=crop" class="tv_card__image" alt="Canvas">
+                                </div>
+                                <h3 class="tv_card__title">Original Works</h3>
+                                <p class="tv_card__price">From $450.00</p>
+                            </div>
+                            <div class="tv_card" onclick="showPage('product')">
+                                <div class="tv_card__image-wrapper">
+                                    <img src="https://images.unsplash.com/photo-1515405295579-ba7b45403062?q=80&w=1000&auto=format&fit=crop" class="tv_card__image" alt="Mugs">
+                                </div>
+                                <h3 class="tv_card__title">Lifestyle</h3>
+                                <p class="tv_card__price">From $25.00</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+<!-- ======================= Newsletter Section ======================= -->
+                <section class="tv_newsletter">
+                    <div class="tv_container">
+                        <h2 style="font-size: calc(3.2rem * var(--tv-rem-scale));">Join the Collector's List</h2>
+                        <p class="tv_text-light">Be the first to know about new original releases, studio updates, and exclusive print drops.</p>
+                        <form class="tv_newsletter__form">
+                            <input type="email" placeholder="Your email address" class="tv_form-input">
+                            <button class="tv_btn tv_btn--dark">Subscribe</button>
+                        </form>
+                        <p class="tv_text-small" style="color: #999; margin-top: calc(1.6rem * var(--tv-rem-scale));">We respect your privacy. Unsubscribe at any time.</p>
+                    </div>
+                </section>
+            </div>
+
+            <!-- ======================= LOGO SHOWCASE VIEW ======================= -->
+            <div id="logo-showcase-view" class="tv_hidden tv_fade-in">
+                <div class="tv_container tv_section-y-md">
+                    <h1 class="tv_text-center tv_mb-6">Brand Identity Concepts</h1>
+                    
+                    <div class="tv_grid tv_grid--3-col">
+                        <!-- Option 1 -->
+                        <div class="tv_logo-card tv_logo-card--selected">
+                            <div class="tv_logo-card__badge">Selected</div>
+                            <h3 class="tv_logo-card__title">Concept 1: Classic Editorial</h3>
+                            <div class="tv_logo-card__visual">
+                                <svg width="240" height="50" viewBox="0 0 240 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <text x="10" y="35" font-family="'Playfair Display', serif" font-weight="400" font-size="32" fill="#333">
+                                        Senora <tspan fill="#D81B60" font-weight="700">Paints</tspan>
+                                    </text>
+                                </svg>
+                            </div>
+                            <p class="tv_text-small" style="color: #666; margin-top: calc(2.4rem * var(--tv-rem-scale));">Clean, editorial style focusing on the artist's name.</p>
+                        </div>
+
+                        <!-- Option 2 -->
+                        <div class="tv_logo-card">
+                            <h3 class="tv_logo-card__title">Concept 2: Modern Icon</h3>
+                            <div class="tv_logo-card__visual">
+                                <svg width="240" height="50" viewBox="0 0 240 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M25 12C25 12 10 17 10 27C10 37 25 34 30 27C35 20 20 20 15 32C12 38 28 44 28 44" stroke="#D81B60" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <circle cx="34" cy="14" r="3" fill="#333"/>
+                                    <text x="50" y="34" font-family="'Playfair Display', serif" font-weight="700" font-size="28" fill="#333" letter-spacing="-0.5">
+                                        Senora Paints
+                                    </text>
+                                </svg>
+                            </div>
+                            <p class="tv_text-small" style="color: #666; margin-top: calc(2.4rem * var(--tv-rem-scale));">Adds an abstract 'S' brush stroke symbol for brand recognition.</p>
+                        </div>
+
+                        <!-- Option 3 -->
+                        <div class="tv_logo-card">
+                            <h3 class="tv_logo-card__title">Concept 3: Artisan Stamp</h3>
+                            <div class="tv_logo-card__visual">
+                                <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="50" cy="50" r="48" stroke="#333" stroke-width="1"/>
+                                    <path d="M10 50 Q 50 10 90 50" id="curve" fill="none"/>
+                                    <text width="100">
+                                        <textPath xlink:href="#curve" startOffset="50%" text-anchor="middle" font-family="'Inter', sans-serif" font-size="10" letter-spacing="2" fill="#333">EST. 2024</textPath>
+                                    </text>
+                                    <text x="50" y="55" font-family="'Playfair Display', serif" font-weight="700" font-size="36" fill="#D81B60" text-anchor="middle">SP</text>
+                                </svg>
+                            </div>
+                            <p class="tv_text-small" style="color: #666; margin-top: calc(2.4rem * var(--tv-rem-scale));">Badge style, perfect for stickers or back-of-canvas stamps.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ======================= CATALOG PAGE ======================= -->
+            <div id="catalog-view" class="tv_hidden tv_fade-in">
+                <div class="tv_banner">
+                    <h1 class="tv_banner__title">Shop All Artwork</h1>
+                    <p class="tv_banner__subtitle">Originals, Prints, and Studio Exclusives</p>
+                </div>
+                
+                <div class="tv_container tv_section-y-sm">
+                    <div class="tv_catalog-layout">
+                        <!-- Sidebar -->
+                        <div>
+                            <!-- Categories -->
+                            <div class="tv_sidebar-filter__section">
+                                <h3 class="tv_sidebar-filter__title">Category</h3>
+                                <ul class="tv_filter-list">
+                                    <li class="tv_filter-list__item"><label class="tv_filter-list__label"><input type="checkbox" checked class="tv_checkbox-input tv_checkbox-input--inline"> All Products</label></li>
+                                    <li class="tv_filter-list__item"><label class="tv_filter-list__label"><input type="checkbox" class="tv_checkbox-input tv_checkbox-input--inline"> Original Paintings</label></li>
+                                    <li class="tv_filter-list__item"><label class="tv_filter-list__label"><input type="checkbox" class="tv_checkbox-input tv_checkbox-input--inline"> Fine Art Prints</label></li>
+                                    <li class="tv_filter-list__item"><label class="tv_filter-list__label"><input type="checkbox" class="tv_checkbox-input tv_checkbox-input--inline"> Greeting Cards</label></li>
+                                </ul>
+                            </div>
+                            
+                            <!-- Availability -->
+                            <div class="tv_sidebar-filter__section">
+                                <h3 class="tv_sidebar-filter__title">Availability</h3>
+                                <ul class="tv_filter-list">
+                                    <li class="tv_filter-list__item"><label class="tv_filter-list__label"><input type="checkbox" checked class="tv_checkbox-input tv_checkbox-input--inline"> In Stock</label></li>
+                                    <li class="tv_filter-list__item"><label class="tv_filter-list__label"><input type="checkbox" class="tv_checkbox-input tv_checkbox-input--inline"> Out of Stock</label></li>
+                                </ul>
+                            </div>
+
+                            <!-- Price -->
+                            <div class="tv_sidebar-filter__section">
+                                <h3 class="tv_sidebar-filter__title">Price</h3>
+                                <p class="tv_text-small tv_text-light tv_mb-1">The highest price is $700.00</p>
+                                <div class="tv_price-inputs">
+                                    <input type="number" id="price-min" placeholder="Min" class="tv_form-input tv_form-input--compact">
+                                    <span>-</span>
+                                    <input type="number" id="price-max" placeholder="Max" class="tv_form-input tv_form-input--compact">
+                                </div>
+                                <button class="tv_btn tv_btn--text tv_text-small" onclick="document.getElementById('price-min').value=''; document.getElementById('price-max').value='';">Reset Price</button>
+                            </div>
+                        </div>
+
+                        <!-- Main Content -->
+                        <div>
+                            <div class="tv_toolbar">
+                                <span class="tv_text-small" style="color: #666;">Showing 5 of 24 products</span>
+                                <select class="tv_toolbar__select">
+                                    <option>Sort by: Featured</option>
+                                    <option>Price: Low to High</option>
+                                    <option>Price: High to Low</option>
+                                </select>
+                            </div>
+
+                            <div class="tv_grid tv_grid--3-col">
+                                <div class="tv_card" onclick="showPage('product')">
+                                    <div class="tv_card__image-wrapper">
+                                        <img src="https://images.unsplash.com/photo-1541963463532-d68292c34b19?q=80&w=1000&auto=format&fit=crop" class="tv_card__image">
+                                        <span class="tv_card__badge tv_card__badge--dark">Original</span>
+                                    </div>
+                                    <h4 class="tv_card__title">Ethereal No. 5</h4>
+                                    <p class="tv_card__price">$450.00</p>
+                                </div>
+                                <div class="tv_card" onclick="showPage('product')">
+                                    <div class="tv_card__image-wrapper">
+                                        <img src="https://images.unsplash.com/photo-1547891654-e66ed7ebb968?q=80&w=1000&auto=format&fit=crop" class="tv_card__image">
+                                        <span class="tv_card__badge tv_card__badge--primary">Best Seller</span>
+                                    </div>
+                                    <h4 class="tv_card__title">Golden Hour Canvas</h4>
+                                    <p class="tv_card__price">$320.00</p>
+                                </div>
+                                <div class="tv_card" onclick="showPage('product')">
+                                    <div class="tv_card__image-wrapper">
+                                        <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=1000&auto=format&fit=crop" class="tv_card__image">
+                                    </div>
+                                    <h4 class="tv_card__title">Studio Tote Bag</h4>
+                                    <p class="tv_card__price">$28.00</p>
+                                </div>
+                                <div class="tv_card" onclick="showPage('product')">
+                                    <div class="tv_card__image-wrapper">
+                                        <img src="https://images.unsplash.com/photo-1549490349-8643362247b5?q=80&w=1000&auto=format&fit=crop" class="tv_card__image">
+                                    </div>
+                                    <h4 class="tv_card__title">Greeting Card Set</h4>
+                                    <p class="tv_card__price">$25.00</p>
+                                </div>
+                                <div class="tv_card" onclick="showPage('product')">
+                                    <div class="tv_card__image-wrapper">
+                                        <img src="https://images.unsplash.com/photo-1515405295579-ba7b45403062?q=80&w=1000&auto=format&fit=crop" class="tv_card__image">
+                                    </div>
+                                    <h4 class="tv_card__title">Ceramic Mug 11oz</h4>
+                                    <p class="tv_card__price">$18.00</p>
+                                </div>
+                            </div>
+
+                            <div class="tv_pagination">
+                                <button class="tv_pagination__btn tv_pagination__btn--active">1</button>
+                                <button class="tv_pagination__btn tv_pagination__btn--default">2</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ======================= COMMISSIONS PAGE ======================= -->
+            <div id="commissions-view" class="tv_hidden tv_fade-in">
+                 <div class="tv_banner tv_banner--large">
+                    <h1 class="tv_banner__title tv_mb-2">Commission a Masterpiece</h1>
+                    <p class="tv_banner__text" style="max-width: 600px; margin: 0 auto; font-size: calc(1.8rem * var(--tv-rem-scale));">Work directly with Senora to create a bespoke artwork perfectly tailored to your space.</p>
+                </div>
+                <div class="tv_container tv_section-y-md">
+                    <form onsubmit="event.preventDefault(); showPage('contact-success');" class="tv_form-card">
+                        
+                        <!-- 1. The Vision -->
+                        <div class="tv_mb-4">
+                            <h3 class="tv_font-bold tv_mb-3" style="font-size: calc(2rem * var(--tv-rem-scale)); border-bottom: 1px solid var(--tv-color-border); padding-bottom: calc(0.8rem * var(--tv-rem-scale));">1. The Vision</h3>
+                            <div class="tv_grid tv_grid--2-col">
+                                <div class="tv_form-group">
+                                    <label class="tv_form-label">Color Palette</label>
+                                    <input type="text" placeholder="e.g. Earth tones, Neon" class="tv_form-input">
+                                </div>
+                                <div class="tv_form-group">
+                                    <label class="tv_form-label">Emotional Vibe</label>
+                                    <select class="tv_form-select">
+                                        <option>Calm & Serene</option>
+                                        <option>Chaotic & Energetic</option>
+                                        <option>Moody & Dark</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="tv_form-group">
+                                <label class="tv_form-label">Describe your space</label>
+                                <textarea rows="3" placeholder="Tell me about the room..." class="tv_form-textarea"></textarea>
+                            </div>
+                        </div>
+                        
+                        <!-- 2. The Scope -->
+                        <div class="tv_mb-4">
+                            <h3 class="tv_font-bold tv_mb-3" style="font-size: calc(2rem * var(--tv-rem-scale)); border-bottom: 1px solid var(--tv-color-border); padding-bottom: calc(0.8rem * var(--tv-rem-scale));">2. The Scope</h3>
+                            <div class="tv_grid tv_grid--2-col">
+                                <div class="tv_form-group">
+                                    <label class="tv_form-label">Desired Size</label>
+                                    <select class="tv_form-select">
+                                        <option>Large (36x48")</option>
+                                        <option>Medium (24x36")</option>
+                                    </select>
+                                </div>
+                                <div class="tv_form-group">
+                                    <label class="tv_form-label">Budget Range</label>
+                                    <select class="tv_form-select">
+                                        <option>$500 - $1,000</option>
+                                        <option>$1,000+</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 3. Premium Add-ons -->
+                        <div class="tv_commissions-addons">
+                            <h3 class="tv_font-bold tv_mb-2 tv_text-primary" style="font-size: calc(2rem * var(--tv-rem-scale));">3. Premium Add-ons</h3>
+                            <div style="display: flex; flex-direction: column; gap: calc(0.8rem * var(--tv-rem-scale));">
+                                <label class="tv_checkbox-wrapper">
+                                    <input type="checkbox" class="tv_checkbox-input">
+                                    <span>Custom Floater Frame (+ $150)</span>
+                                </label>
+                                <label class="tv_checkbox-wrapper">
+                                    <input type="checkbox" class="tv_checkbox-input">
+                                    <span>Metallic Gold/Silver Leaf Accents (+ $75)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Contact Info -->
+                        <div class="tv_mb-4">
+                            <h3 class="tv_font-bold tv_mb-3" style="font-size: calc(2rem * var(--tv-rem-scale)); border-bottom: 1px solid var(--tv-color-border); padding-bottom: calc(0.8rem * var(--tv-rem-scale));">Contact Details</h3>
+                             <div class="tv_grid tv_grid--2-col">
+                                <div class="tv_form-group">
+                                    <label class="tv_form-label">Your Name</label>
+                                    <input type="text" class="tv_form-input" required>
+                                </div>
+                                <div class="tv_form-group">
+                                    <label class="tv_form-label">Email Address</label>
+                                    <input type="email" class="tv_form-input" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="tv_btn tv_btn--primary tv_btn--full">Submit Request</button>
+                        <p class="tv_text-center tv_text-small tv_text-light" style="margin-top: calc(1.6rem * var(--tv-rem-scale));">No payment required today. We will contact you within 24 hours to finalize details.</p>
+                    </form>
+                </div>
+            </div>
+
+            <!-- ======================= CART PAGE ======================= -->
+            <div id="cart-view" class="tv_hidden tv_fade-in">
+                <div class="tv_container tv_section-y-md">
+                    <div class="tv_cart-header">
+                         <h1>Your Cart (2)</h1>
+                         <button onclick="showPage('empty-cart')" class="tv_btn tv_btn--text">Simulate Empty Cart</button>
+                    </div>
+                    
+                    <div class="tv_cart-layout">
+                        <!-- Items -->
+                        <div class="tv_cart-items">
+                            <!-- Item 1 -->
+                            <div class="tv_cart-item">
+                                <div class="tv_cart-item__img">
+                                    <img src="https://images.unsplash.com/photo-1541963463532-d68292c34b19?q=80&w=1000&auto=format&fit=crop">
+                                </div>
+                                <div class="tv_cart-item__info">
+                                    <div class="tv_cart-item__header">
+                                        <h3 class="tv_font-bold" style="font-size: calc(1.8rem * var(--tv-rem-scale));">Ethereal Chaos No. 5</h3>
+                                        <span class="tv_font-bold">$450.00</span>
+                                    </div>
+                                    <p class="tv_text-small tv_mb-1" style="color: #666;">Original Canvas - 24x36"</p>
+                                    <p class="tv_text-small tv_mb-2" style="color: #666;">Single Price: $450.00</p>
+                                    
+                                    <div class="tv_cart-item__controls">
+                                        <div class="tv_qty-control">
+                                            <button class="tv_qty-control__btn">-</button>
+                                            <input type="number" class="tv_qty-control__val" value="1" readonly>
+                                            <button class="tv_qty-control__btn">+</button>
+                                        </div>
+                                        <button class="tv_cart-item__remove">Remove</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                             <!-- Item 2 -->
+                            <div class="tv_cart-item">
+                                <div class="tv_cart-item__img">
+                                    <img src="https://images.unsplash.com/photo-1515405295579-ba7b45403062?q=80&w=1000&auto=format&fit=crop">
+                                </div>
+                                <div class="tv_cart-item__info">
+                                    <div class="tv_cart-item__header">
+                                        <h3 class="tv_font-bold" style="font-size: calc(1.8rem * var(--tv-rem-scale));">Ceramic Mug</h3>
+                                        <span class="tv_font-bold">$36.00</span>
+                                    </div>
+                                    <p class="tv_text-small tv_mb-1" style="color: #666;">Standard 11oz</p>
+                                    <p class="tv_text-small tv_mb-2" style="color: #666;">Single Price: $18.00</p>
+                                    
+                                    <div class="tv_cart-item__controls">
+                                        <div class="tv_qty-control">
+                                            <button class="tv_qty-control__btn">-</button>
+                                            <input type="number" class="tv_qty-control__val" value="2" readonly>
+                                            <button class="tv_qty-control__btn">+</button>
+                                        </div>
+                                        <button class="tv_cart-item__remove">Remove</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Summary -->
+                        <div class="tv_cart-summary">
+                            <div class="tv_cart-summary__box">
+                                <h3 class="tv_font-serif tv_font-bold tv_mb-3" style="font-size: calc(2rem * var(--tv-rem-scale));">Order Summary</h3>
+                                <div class="tv_text-small tv_mb-3" style="color: #666;">
+                                    <div class="tv_cart-summary__total">
+                                        <span>Estimated Total</span>
+                                        <span class="tv_text-primary">$486.00</span>
+                                    </div>
+                                    <p class="tv_text-italic" style="font-size: calc(1.2rem * var(--tv-rem-scale));">Taxes, discounts and shipping calculated at checkout</p>
+                                </div>
+                                <button onclick="showPage('checkout')" class="tv_btn tv_btn--dark tv_btn--full tv_mb-2">Proceed to Checkout</button>
+                                <button onclick="showPage('catalog')" class="tv_btn tv_btn--secondary tv_btn--full">Continue Shopping</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ======================= EMPTY CART PAGE ======================= -->
+            <div id="empty-cart-view" class="tv_hidden tv_fade-in tv_empty-cart-container">
+                <div>
+                    <div class="tv_empty-cart__icon">
+                        <i class="ph ph-shopping-bag" style="font-size: calc(4rem * var(--tv-rem-scale)); color: #999;"></i>
+                    </div>
+                    <h1 class="tv_font-bold tv_mb-1" style="font-size: calc(3.2rem * var(--tv-rem-scale));">Your Cart is Empty</h1>
+                    <p class="tv_mb-4" style="color: #666; max-width: 400px; margin-left: auto; margin-right: auto;">Looks like you haven't found a masterpiece yet.</p>
+                    
+                    <div class="tv_empty-cart__actions">
+                        <button onclick="showPage('catalog')" class="tv_btn tv_btn--primary">Shop Originals</button>
+                        <button onclick="showPage('catalog')" class="tv_btn tv_btn--secondary">Shop Prints</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ======================= CHECKOUT PAGE ======================= -->
+            <div id="checkout-view" class="tv_hidden tv_fade-in">
+                <div class="tv_container tv_section-y-md" style="max-width: 900px;">
+                     <button onclick="showPage('cart')" class="tv_btn tv_btn--text tv_mb-4" style="color: #666;">
+                        <i class="ph ph-arrow-left"></i> Back to Cart
+                     </button>
+                     <div class="tv_grid tv_grid--2-col">
+                         <div>
+                            <div class="tv_mb-4">
+                                <h2 class="tv_font-bold tv_mb-2" style="font-size: calc(2rem * var(--tv-rem-scale));">Contact Info</h2>
+                                <input type="email" placeholder="Email Address" class="tv_form-input">
+                            </div>
+                            <div class="tv_mb-4">
+                                <h2 class="tv_font-bold tv_mb-2" style="font-size: calc(2rem * var(--tv-rem-scale));">Shipping</h2>
+                                <div class="tv_grid tv_grid--2-col" style="gap: calc(1.6rem * var(--tv-rem-scale));">
+                                    <input type="text" placeholder="First name" class="tv_form-input">
+                                    <input type="text" placeholder="Last name" class="tv_form-input">
+                                    <input type="text" placeholder="Address" class="tv_form-input" style="grid-column: span 2;">
+                                    <input type="text" placeholder="City" class="tv_form-input">
+                                    <input type="text" placeholder="ZIP" class="tv_form-input">
+                                </div>
+                            </div>
+                            <button onclick="alert('Demo Order Placed!')" class="tv_btn tv_btn--primary tv_btn--full">Pay Now - $486.00</button>
+                         </div>
+                         
+                         <div style="background-color: #fafafa; padding: calc(3.2rem * var(--tv-rem-scale));">
+                             <h3 class="tv_font-bold tv_mb-2">Order Summary</h3>
+                             <div style="display: flex; justify-content: space-between; border-top: 1px solid #ddd; padding-top: calc(1.6rem * var(--tv-rem-scale)); margin-top: calc(1.6rem * var(--tv-rem-scale)); font-size: calc(2rem * var(--tv-rem-scale)); font-weight: bold;">
+                                 <span>Total</span>
+                                 <span>$486.00</span>
+                             </div>
+                         </div>
+                     </div>
+                </div>
+            </div>
+
+            <!-- ======================= PRODUCT VIEW ======================= -->
+            <div id="product-view" class="tv_hidden tv_opacity-0 tv_transition-opacity">
+                <div class="tv_container" style="padding-top: calc(4.8rem * var(--tv-rem-scale)); padding-bottom: calc(8rem * var(--tv-rem-scale));">
+                    <div class="tv_text-small tv_mb-4" style="color: #666;">
+                        <a href="#" onclick="showPage('home')" style="text-decoration: underline;">Home</a> / 
+                        <a href="#" onclick="showPage('catalog')" style="text-decoration: underline;">Shop</a> / 
+                        <span style="color: var(--tv-color-text);">Ethereal No. 5</span>
+                    </div>
+
+                    <div class="tv_product-detail__grid">
+                        <div class="tv_product-detail__gallery">
+                            <div class="tv_gallery__main">
+                                <img id="main-product-image" src="https://images.unsplash.com/photo-1547891654-e66ed7ebb968?q=80&w=1000&auto=format&fit=crop">
+                                <button onclick="openRoomModal()" class="tv_view-in-room-btn">
+                                    <i class="ph ph-eye" style="font-size: calc(1.8rem * var(--tv-rem-scale));"></i> View in Room
+                                </button>
+                            </div>
+                            <div class="tv_gallery__thumbnails">
+                                <!--<div class="tv_gallery__thumb" onclick="changeImage(this)"><img src="https://images.unsplash.com/photo-1541963463532-d68292c34b19?q=80&w=1000&auto=format&fit=crop"></div>-->
+                                <div class="tv_gallery__thumb tv_gallery__thumb--active" onclick="changeImage(this)"><img src="https://images.unsplash.com/photo-1547891654-e66ed7ebb968?q=80&w=1000&auto=format&fit=crop"></div>
+                                <div class="tv_gallery__thumb" onclick="changeImage(this)"><img src="https://images.unsplash.com/photo-1515405295579-ba7b45403062?q=80&w=1000&auto=format&fit=crop"></div>
+                            </div>
+                        </div>
+
+                        <div class="tv_product-detail__info">
+                            <p class="tv_vendor-name">SENORA PAINTS</p>
+                            <h1 class="tv_product-title">Ethereal Chaos No. 5</h1>
+                            <div class="tv_product-price">$450.00</div>
+                            
+                            <div class="tv_mb-4">
+                                <label class="tv_form-label">Format & Size</label>
+                                <div class="tv_variant-options">
+                                    <button class="tv_variant-btn tv_variant-btn--active">Canvas 24x36"</button>
+                                    <button class="tv_variant-btn">Print 18x24"</button>
+                                    <button class="tv_variant-btn">Mug 15oz</button>
+                                </div>
+                            </div>
+
+                            <div class="tv_mb-4">
+                                <label class="tv_form-label">Quantity</label>
+                                <div class="tv_qty-control">
+                                    <button class="tv_qty-control__btn" onclick="updateQty(-1)">-</button>
+                                    <input id="qty-input" type="number" class="tv_qty-control__val" value="1" readonly aria-label="Product Quantity">
+                                    <button class="tv_qty-control__btn" onclick="updateQty(1)">+</button>
+                                </div>
+                            </div>
+
+                            <div class="tv_mb-4" style="display: flex; flex-direction: column; gap: calc(1.6rem * var(--tv-rem-scale));">
+                                <button onclick="showPage('cart')" class="tv_btn tv_btn--primary tv_btn--full">Add to Cart</button>
+                                <button onclick="showPage('checkout')" class="tv_btn tv_btn--dark tv_btn--full">Buy it Now</button>
+                            </div>
+                            
+                            <div class="tv_accordion">
+                                <div class="tv_accordion__item">
+                                    <button onclick="toggleAccordion('desc')" class="tv_accordion__header">
+                                        <span class="tv_accordion__title">Description</span>
+                                        <i id="icon-desc" class="ph ph-plus tv_accordion__icon"></i>
+                                    </button>
+                                    <div id="content-desc" class="tv_accordion__content">
+                                        <div class="tv_accordion__text">
+                                            An explosion of color and emotion, "Ethereal No. 5" captures the vibrant energy of a summer storm. Painted using high-body acrylics on gallery-wrapped canvas.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tv_accordion__item">
+                                    <button onclick="toggleAccordion('ship')" class="tv_accordion__header">
+                                        <span class="tv_accordion__title">Shipping & Returns</span>
+                                        <i id="icon-ship" class="ph ph-plus tv_accordion__icon"></i>
+                                    </button>
+                                    <div id="content-ship" class="tv_accordion__content">
+                                        <div class="tv_accordion__text">
+                                            Free shipping on all original artworks within the US. Prints ship via Printful worldwide. Returns accepted within 14 days of delivery for original art in original condition.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button class="tv_btn--text">
+                                <i class="ph ph-share-network" style="font-size: calc(2rem * var(--tv-rem-scale));"></i> Share
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ======================= ABOUT PAGE ======================= -->
+            <div id="about-view" class="tv_hidden tv_fade-in">
+                <div class="tv_about-hero">
+                     <div class="tv_about-hero__bg-svg">
+                         <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                            <path fill="#E91E63" d="M44.7,-76.4C58.9,-69.2,71.8,-59.1,79.6,-46.9C87.4,-34.7,90.1,-20.4,85.8,-7.4C81.5,5.6,70.2,17.3,60.9,29.3C51.7,41.3,44.5,53.5,34.4,62.8C24.3,72.1,11.3,78.5,-0.6,79.5C-12.5,80.5,-26.1,76.1,-37.2,67.8C-48.3,59.5,-56.9,47.3,-64.1,34.5C-71.3,21.7,-77.1,8.3,-76.3,-4.8C-75.5,-17.9,-68.1,-30.7,-59,-41.8C-49.9,-52.9,-39.1,-62.3,-27.1,-70.7C-15.1,-79.1,-1.9,-86.5,12.1,-87.3C26.1,-88.1,52.2,-82.3,44.7,-76.4Z" transform="translate(100 100)" />
+                        </svg>
+                     </div>
+                     <div class="tv_about-hero__inner">
+                        <h1 class="tv_about-hero__title">The Artist Behind the Brush</h1>
+                        <div class="tv_about-hero__img-container">
+                            <img src="https://images.unsplash.com/photo-1551029506-0807df4e2031?q=80&w=1934&auto=format&fit=crop" class="tv_about-hero__img">
+                        </div>
+                        <p class="tv_about-hero__quote">
+                            "I paint to capture the fleeting moments of emotion that words cannot express."
+                        </p>
+                     </div>
+                </div>
+                <div class="tv_about-content">
+                    <p>
+                        Senora grew up surrounded by the vivid colors of the West Michigan coast, an influence that permeates every canvas she touches. What started as a therapeutic escape from the corporate world quickly evolved into a passionate career.
+                    </p>
+                    <p>
+                        Her process is intuitive and physical. She often abandons brushes in favor of palette knives, sponges, and her own hands to manipulate the acrylics, building layer upon layer of texture.
+                    </p>
+                    <p>
+                        Today, her work hangs in modern homes and offices across the globe, bringing energy, conversation, and a touch of organized chaos to every wall.
+                    </p>
+                </div>
+            </div>
+
+            <!-- ======================= CONTACT PAGE ======================= -->
+            <div id="contact-view" class="tv_hidden tv_fade-in">
+                 <div class="tv_container tv_section-y-contact">
+                     <div class="tv_grid tv_grid--2-col" style="gap: calc(6.4rem * var(--tv-rem-scale));">
+                         <div>
+                             <h1 class="tv_font-bold tv_mb-3" style="font-size: calc(4.8rem * var(--tv-rem-scale));">Get in Touch</h1>
+                             <p class="tv_mb-4" style="color: #666;">Have a question about a specific piece, shipping, or just want to say hello?</p>
+                             <div style="display: flex; align-items: center; gap: calc(1.6rem * var(--tv-rem-scale));">
+                                 <div class="tv_social-icon" style="background: rgba(216, 27, 96, 0.1); color: var(--tv-color-primary);">
+                                     <i class="ph ph-envelope" style="font-size: calc(2rem * var(--tv-rem-scale));"></i>
+                                 </div>
+                                 <span class="tv_font-bold">support@senorapaints.com</span>
+                             </div>
+                         </div>
+                         <form onsubmit="event.preventDefault(); showPage('contact-success');">
+                             <div class="tv_grid tv_grid--2-col" style="gap: calc(2.4rem * var(--tv-rem-scale)); margin-bottom: calc(2.4rem * var(--tv-rem-scale));">
+                                 <input type="text" placeholder="Name" class="tv_form-input">
+                                 <input type="email" placeholder="Email" class="tv_form-input">
+                             </div>
+                             <textarea rows="5" placeholder="Message" class="tv_form-textarea tv_mb-3"></textarea>
+                             <button type="submit" class="tv_btn tv_btn--dark">Send Message</button>
+                         </form>
+                     </div>
+                 </div>
+            </div>
+
+            <!-- ======================= PRIVACY POLICY VIEW ======================= -->
+            <div id="privacy-view" class="tv_hidden tv_fade-in">
+                <div class="tv_container tv_section-y-md">
+                    <div class="tv_privacy-content">
+                        <h1 style="font-size: calc(4rem * var(--tv-rem-scale)); margin-bottom: calc(3.2rem * var(--tv-rem-scale));">Privacy Policy</h1>
+                        
+                        <p>Last Updated: October 2024</p>
+                        <p>At Senora Paints, we respect your privacy and are committed to protecting the personal information you share with us. This policy outlines how we collect, use, and safeguard your data.</p>
+                        
+                        <h3 class="tv_font-bold tv_mb-2" style="font-size: calc(2rem * var(--tv-rem-scale)); margin-top: calc(3.2rem * var(--tv-rem-scale));">1. Information We Collect</h3>
+                        <p>When you purchase something from our store, as part of the buying and selling process, we collect the personal information you give us such as your name, address, and email address.</p>
+                        
+                        <h3 class="tv_font-bold tv_mb-2" style="font-size: calc(2rem * var(--tv-rem-scale)); margin-top: calc(3.2rem * var(--tv-rem-scale));">2. Third-Party Services (Printful)</h3>
+                        <p>We use third-party providers like Printful for order fulfillment of printed goods. We may share your shipping information with them solely for the purpose of delivering your order.</p>
+                        
+                        <h3 class="tv_font-bold tv_mb-2" style="font-size: calc(2rem * var(--tv-rem-scale)); margin-top: calc(3.2rem * var(--tv-rem-scale));">3. Security</h3>
+                        <p>To protect your personal information, we take reasonable precautions and follow industry best practices to make sure it is not inappropriately lost, misused, accessed, disclosed, altered, or destroyed.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ======================= SEARCH VIEW ======================= -->
+            <div id="search-view" class="tv_hidden tv_fade-in">
+                <div class="tv_search-bar">
+                    <div class="tv_search-input-wrapper">
+                        <i class="ph ph-magnifying-glass tv_search-icon"></i>
+                        <input type="text" value="Abstract Blue" class="tv_form-input tv_search-input">
+                    </div>
+                </div>
+                <div class="tv_container tv_section-y-sm">
+                    <h2 class="tv_mb-4" style="font-size: calc(2.4rem * var(--tv-rem-scale));">3 Results for "Abstract Blue"</h2>
+                    <div class="tv_grid tv_grid--3-col">
+                         <div class="tv_card" onclick="showPage('product')">
+                            <div class="tv_card__image-wrapper">
+                                <img src="https://images.unsplash.com/photo-1541963463532-d68292c34b19?q=80&w=1000&auto=format&fit=crop" class="tv_card__image">
+                            </div>
+                            <h4 class="tv_card__title">Ethereal Chaos No. 5</h4>
+                            <p class="tv_card__price">$450.00</p>
+                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ======================= SUCCESS PAGE ======================= -->
+            <div id="contact-success-view" class="tv_hidden tv_fade-in" style="flex-grow: 1; display: flex; align-items: center; justify-content: center; min-height: 60vh; text-align: center;">
+                <div>
+                    <div style="width: calc(8rem * var(--tv-rem-scale)); height: calc(8rem * var(--tv-rem-scale)); background: #dcfce7; color: #16a34a; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto calc(2.4rem * var(--tv-rem-scale));">
+                        <i class="ph ph-check" style="font-size: calc(4rem * var(--tv-rem-scale));"></i>
+                    </div>
+                    <h2 class="tv_mb-2" style="font-size: calc(4rem * var(--tv-rem-scale));">Message Sent!</h2>
+                    <button onclick="showPage('home')" class="tv_btn tv_btn--dark">Return Home</button>
+                </div>
+            </div>
+            
+        </main>
+
+        <!-- FOOTER -->
+        <footer class="tv_footer">
+            <div class="tv_container">
+                <div class="tv_footer__grid">
+                    <div>
+                        <h4 class="tv_font-serif tv_mb-2" style="font-size: calc(2.4rem * var(--tv-rem-scale));">Senora<span class="tv_text-primary">.</span></h4>
+                        <p class="tv_text-small" style="color: #9ca3af;">Bringing abstract sophistication to modern interiors.</p>
+                    </div>
+                    <div>
+                        <h5 class="tv_footer__title">Shop</h5>
+                        <ul class="tv_footer__links">
+                            <li><a href="#" onclick="showPage('catalog')">Originals</a></li>
+                            <li><a href="#" onclick="showPage('catalog')">Prints</a></li>
+                        </ul>
+                    </div>
+                     <div>
+                        <h5 class="tv_footer__title">Company</h5>
+                        <ul class="tv_footer__links">
+                            <li><a href="#" onclick="showPage('about')">About</a></li>
+                            <li><a href="#" onclick="showPage('contact')">Contact</a></li>
+                            <li><a href="#" onclick="showPage('privacy')">Privacy Policy</a></li>
+                        </ul>
+                    </div>
+                     <div>
+                        <h5 class="tv_footer__title">Connect</h5>
+                        <div class="tv_footer__social">
+                            <a href="#" class="tv_social-icon"><i class="ph ph-instagram-logo" style="font-size: calc(2rem * var(--tv-rem-scale));"></i></a>
+                            <a href="#" class="tv_social-icon"><i class="ph ph-envelope" style="font-size: calc(2rem * var(--tv-rem-scale));"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="tv_footer__copyright">
+                    &copy; 2026 Senora Paints. All rights reserved.
+                </div>
+            </div>
+        </footer>
+    </div> <!-- End .tv_scope -->
+
+    <!-- VIEW IN ROOM MODAL (Outside scope but styled with prefix) -->
+    <div id="room-modal" class="tv_modal">
+        <div class="tv_modal__backdrop" onclick="closeRoomModal()"></div>
+        <div class="tv_modal__container">
+            <div class="tv_modal__content">
+                <div class="tv_modal__header">
+                     <span class="tv_modal__tag">Preview Mode</span>
+                     <button onclick="closeRoomModal()" class="tv_modal__close"><i class="ph ph-x" style="font-size: calc(2rem * var(--tv-rem-scale));"></i></button>
+                </div>
+                <div class="tv_modal__visual">
+                    <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=2000&auto=format&fit=crop" class="tv_modal__bg">
+                    <div class="tv_painting-mockup">
+                        <div class="tv_painting-mockup__inner">
+                            <img id="modal-product-image" src="" style="width: 100%; display: block; mix-blend-mode: multiply;">
+                        </div>
+                    </div>
+                </div>
+                 <div class="tv_modal__footer">
+                    <p class="tv_text-small" style="color: #666;">Visualizer Estimate: 24x36 Canvas</p>
+                    <button class="tv_btn tv_btn--secondary" style="border: none; color: var(--tv-color-primary); font-weight: bold; text-transform: uppercase;" onclick="closeRoomModal()">Return to Product</button>
+                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // --- Navigation Logic ---
+        function showPage(pageId, sectionId = null) {
+            const views = [
+                'home-view', 'product-view', 'commissions-view', 
+                'search-view', 'cart-view', 'checkout-view', 
+                'contact-view', 'about-view', 'contact-success-view',
+                'logo-showcase-view', 'catalog-view', 'empty-cart-view',
+                'privacy-view'
+            ];
+            
+            // Hide all
+            views.forEach(id => {
+                const el = document.getElementById(id);
+                if(el) {
+                    el.classList.add('tv_hidden');
+                    if(id === 'home-view' || id === 'product-view') {
+                        el.classList.remove('tv_opacity-100');
+                        el.classList.add('tv_opacity-0');
+                    }
+                }
+            });
+
+            // Show selected
+            const targetView = document.getElementById(pageId + '-view');
+            if (targetView) {
+                targetView.classList.remove('tv_hidden');
+                
+                // Fade effect
+                if(pageId === 'home' || pageId === 'product') {
+                    setTimeout(() => {
+                        targetView.classList.remove('tv_opacity-0');
+                        targetView.classList.add('tv_opacity-100');
+                    }, 10);
+                }
+                
+                window.scrollTo(0,0);
+            }
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('flex');
+        }
+
+        // --- Product Logic ---
+        function changeImage(element) {
+            const src = element.querySelector('img').src;
+            const mainImg = document.getElementById('main-product-image');
+            
+            // Visual transition
+            mainImg.style.opacity = '0.5';
+            setTimeout(() => {
+                mainImg.src = src;
+                mainImg.style.opacity = '1';
+            }, 200);
+
+            // Toggle active class on thumbnails
+            document.querySelectorAll('.tv_gallery__thumb').forEach(thumb => {
+                thumb.classList.remove('tv_gallery__thumb--active');
+            });
+            element.classList.add('tv_gallery__thumb--active');
+        }
+
+        function toggleAccordion(id) {
+            const content = document.getElementById(`content-${id}`);
+            const icon = document.getElementById(`icon-${id}`);
+            
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null;
+                content.classList.remove('active');
+                icon.classList.remove('tv_rotate-45');
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+                content.classList.add('active');
+                icon.classList.add('tv_rotate-45');
+            }
+        }
+
+        function openRoomModal() {
+            const modal = document.getElementById('room-modal');
+            const mainImgSrc = document.getElementById('main-product-image').src;
+            const modalImg = document.getElementById('modal-product-image');
+            modalImg.src = mainImgSrc;
+            modal.style.display = 'block';
+        }
+
+        function closeRoomModal() {
+            const modal = document.getElementById('room-modal');
+            modal.style.display = 'none';
+        }
+
+        // --- Quantity Logic ---
+        function updateQty(change) {
+            const input = document.getElementById('qty-input');
+            if (input) {
+                let val = parseInt(input.value);
+                val += change;
+                if (val < 1) val = 1;
+                input.value = val;
+            }
+        }
+    </script>
+</body>
+</html>
